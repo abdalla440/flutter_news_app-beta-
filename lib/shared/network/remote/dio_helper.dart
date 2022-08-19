@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
 class DioHelper {
-  static Dio? dio;
-
+  // static Dio dio;
+  static var dio = Dio();
   static init() {
     print('Dio init method');
     dio = Dio(BaseOptions(
@@ -18,6 +18,6 @@ class DioHelper {
     required Map<String, dynamic> query,
   }) async {
 
-    return await dio!.get(url, queryParameters: query);
+    return await dio.get(url, queryParameters: query);
   }
 }

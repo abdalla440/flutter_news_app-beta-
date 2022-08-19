@@ -6,12 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/shared/cubit/app_cubit.dart';
 
 class NewsApp extends StatelessWidget {
-  const NewsApp({Key? key}) : super(key: key);
-
+  final bool? isDark;
+  NewsApp(this.isDark);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..changeMode(themeIndicator: isDark),
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder:(context, state) {
