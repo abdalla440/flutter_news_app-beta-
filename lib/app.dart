@@ -12,22 +12,23 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-  providers: [
-    BlocProvider(
-      create: (context) => AppCubit()..changeMode(themeIndicator: isDark),
-),
-    BlocProvider(
-      create: (context) =>  NewsCubit()..loadHomeData(),
-    ),
-  ],
-  child: BlocConsumer<AppCubit, AppState>(
+      providers: [
+        BlocProvider(
+          create: (context) => AppCubit()..changeMode(themeIndicator: isDark),
+        ),
+        BlocProvider(
+          create: (context) => NewsCubit()..loadHomeData(),
+        ),
+      ],
+      child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
-        builder:(context, state) {
+        builder: (context, state) {
           return MaterialApp(
             home: const NewsHome(),
             theme: ThemeData(
                 primarySwatch: Colors.teal,
                 appBarTheme: const AppBarTheme(
+                  iconTheme: IconThemeData(color: Colors.black),
                   systemOverlayStyle: SystemUiOverlayStyle(
                       statusBarIconBrightness: Brightness.dark,
                       statusBarColor: Colors.white),
@@ -48,7 +49,8 @@ class NewsApp extends StatelessWidget {
                     backgroundColor: Colors.white,
                     unselectedItemColor: Colors.grey[500],
                     selectedItemColor: Colors.grey[850],
-                    selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500)),
+                    selectedLabelStyle:
+                        const TextStyle(fontWeight: FontWeight.w500)),
                 textTheme: const TextTheme(
                     bodyText1: TextStyle(
                         fontSize: 16.0,
@@ -78,18 +80,19 @@ class NewsApp extends StatelessWidget {
                     backgroundColor: HexColor('333739'),
                     unselectedItemColor: Colors.grey[500],
                     selectedItemColor: Colors.teal[500],
-                    selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500)),
+                    selectedLabelStyle:
+                        const TextStyle(fontWeight: FontWeight.w500)),
                 textTheme: const TextTheme(
                     bodyText1: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
                         color: Colors.white))),
-            themeMode: AppCubit.get(context).isDark? ThemeMode.dark :ThemeMode.light,
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,
           );
         },
-
       ),
-);
+    );
   }
 }
