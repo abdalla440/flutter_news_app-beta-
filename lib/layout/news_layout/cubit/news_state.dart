@@ -32,3 +32,9 @@ class NewsLoadingHomeState extends NewsState {}
 class NewsSuccessHomeState extends NewsState {}
 
 class NewsFailureHomeState extends NewsState {}
+
+class NewsLoadingSearchState extends NewsState {}
+
+class NewsSuccessSearchState extends NewsState {}
+
+class NewsFailureSearchState extends NewsState {}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:news_app/layout/news_layout/cubit/news_cubit.dart';
 import 'package:news_app/layout/news_layout/news_layout.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +11,16 @@ class NewsApp extends StatelessWidget {
   NewsApp(this.isDark);
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return MultiBlocProvider(
+  providers: [
+    BlocProvider(
       create: (context) => AppCubit()..changeMode(themeIndicator: isDark),
-      child: BlocConsumer<AppCubit, AppState>(
+),
+    BlocProvider(
+      create: (context) =>  NewsCubit()..loadHomeData(),
+    ),
+  ],
+  child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder:(context, state) {
           return MaterialApp(
@@ -82,6 +90,6 @@ class NewsApp extends StatelessWidget {
         },
 
       ),
-    );
+);
   }
 }

@@ -161,4 +161,29 @@ class NewsCubit extends Cubit<NewsState> {
       emit(NewsSuccessHomeState());
     }
   }
+
+  List<dynamic> search = [];
+
+  /// create function to use when need to get Business data using getData method
+  /// of [DioHelper] class
+  void loadSearchData({String? searchKey}) {
+    search = [];
+    if (search.isEmpty) {
+      emit(NewsLoadingSearchState());
+      DioHelper.getData(url: 'v2/everything', query: {
+        'q':'$searchKey',
+        'apiKey': '03d124e4c62d41c2bbb263d9a256dd2f',
+      })
+          .then((value) => {
+        emit(NewsSuccessSearchState()),
+        search = value.data['articles'],
+      })
+          .catchError((error) {
+        emit(NewsFailureSearchState());
+        print('there is an error: ----> ${error.toString()}');
+      });
+    } else {
+      emit(NewsSuccessSearchState());
+    }
+  }
 }
