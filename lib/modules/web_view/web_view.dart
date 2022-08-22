@@ -6,7 +6,10 @@ class webViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        // title: Text('$title'),
+      ),
       body: WebView(
         initialUrl: url,
       ),

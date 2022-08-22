@@ -14,7 +14,7 @@ Widget articleItemBuilder({required article, required context}) => InkWell(
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => webViewScreen(article['url'])),
+              builder: (context) => webViewScreen(article['url'] )),
         );
       },
       child: Padding(
@@ -61,7 +61,7 @@ Widget articleItemBuilder({required article, required context}) => InkWell(
       ),
     );
 
-Widget articleListBuilder({required articleList, required context}) =>
+Widget articleListBuilder( articleList,  context, {isSearch = false}) =>
     ConditionalBuilder(
       condition: articleList.isNotEmpty,
       builder: (context) => ListView.separated(
@@ -76,9 +76,10 @@ Widget articleListBuilder({required articleList, required context}) =>
               'title': articleList[index]['title'],
               'publishedAt': articleList[index]['publishedAt'],
               'url':  articleList[index]['url'],
+              'author': articleList[index]['author'],
             }, context: context);
           },
           separatorBuilder: (context, index) => articleSeparator(),
           itemCount: articleList.length),
-      fallback: (context) => const Center(child: CircularProgressIndicator()),
+      fallback: (context) => isSearch?Container(): const Center(child: CircularProgressIndicator()),
     );

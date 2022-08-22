@@ -16,6 +16,7 @@ class NewsHome extends StatelessWidget {
           var index = cubit.currentIndex;
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               title: const Text('News App'),
               actions: [
                 IconButton(
@@ -23,15 +24,21 @@ class NewsHome extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SearchScreen()
-                          )
-                      );
-                    }, icon: const Icon(Icons.search_rounded)),
+                              builder: (context) => const SearchScreen()));
+                    },
+                    icon: const Icon(Icons.search_rounded)),
                 IconButton(
                     onPressed: () {
                       AppCubit.get(context).changeMode();
-                    }, icon: const Icon(Icons.brightness_4_outlined)),
+                    },
+                    icon: const Icon(Icons.brightness_4_outlined)),
               ],
+              leading: IconButton(
+                  onPressed: () {
+
+                  },
+                  icon: Icon(Icons.menu_rounded),
+              ),
             ),
             body: cubit.screens[index],
             bottomNavigationBar: BottomNavigationBar(
