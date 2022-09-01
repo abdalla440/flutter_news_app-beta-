@@ -38,3 +38,21 @@ class NewsLoadingSearchState extends NewsState {}
 class NewsSuccessSearchState extends NewsState {}
 
 class NewsFailureSearchState extends NewsState {}
+
+class NewsLoadingHealthState extends NewsState {}
+
+class NewsSuccessHealthState extends NewsState {}
+
+class NewsFailureHealthState extends NewsState {}
+
+class NewsLoadingTechnologyState extends NewsState {}
+
+class NewsSuccessTechnologyState extends NewsState {}
+
+class NewsFailureTechnologyState extends NewsState {}
+
+class NewsLoadingHeadLinesState extends NewsState {}
+
+class NewsSuccessHeadLinesState extends NewsState {}
+
+class NewsFailureHeadLinesState extends NewsState {}

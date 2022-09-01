@@ -4,6 +4,7 @@ import 'package:news_app/layout/news_layout/cubit/news_cubit.dart';
 import 'package:news_app/layout/news_layout/news_layout.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/layout/news_layout/news_layout_temp.dart';
 import 'package:news_app/shared/cubit/app_cubit.dart';
 
 class NewsApp extends StatelessWidget {
@@ -11,6 +12,7 @@ class NewsApp extends StatelessWidget {
   NewsApp(this.isDark);
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -24,17 +26,17 @@ class NewsApp extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
-            home: const NewsHome(),
+            home: const NewsLayoutTemp(),
             theme: ThemeData(
-                primarySwatch: Colors.teal,
+                primarySwatch: Colors.red,
                 appBarTheme: const AppBarTheme(
                   iconTheme: IconThemeData(color: Colors.black),
                   systemOverlayStyle: SystemUiOverlayStyle(
                       statusBarIconBrightness: Brightness.dark,
-                      statusBarColor: Colors.white),
-                  color: Colors.white,
+                      statusBarColor: Colors.red),
+                  color: Colors.red,
                   titleTextStyle: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: 20.0),
                   actionsIconTheme: IconThemeData(
@@ -48,14 +50,18 @@ class NewsApp extends StatelessWidget {
                     elevation: 20,
                     backgroundColor: Colors.white,
                     unselectedItemColor: Colors.grey[500],
-                    selectedItemColor: Colors.grey[850],
+                    selectedItemColor: Colors.red,
                     selectedLabelStyle:
                         const TextStyle(fontWeight: FontWeight.w500)),
                 textTheme: const TextTheme(
                     bodyText1: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black))),
+                        color: Colors.black),
+                    bodyText2: TextStyle(fontSize: 18.0, color: Colors.black)),
+                iconTheme: IconThemeData(
+                    color: Colors.black
+                )),
             darkTheme: ThemeData(
                 primarySwatch: Colors.teal,
                 appBarTheme: AppBarTheme(
@@ -86,7 +92,11 @@ class NewsApp extends StatelessWidget {
                     bodyText1: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white))),
+                        color: Colors.white),
+                    bodyText2: TextStyle(fontSize: 18.0, color: Colors.white)),
+            iconTheme: IconThemeData(
+              color: Colors.white
+            )),
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,

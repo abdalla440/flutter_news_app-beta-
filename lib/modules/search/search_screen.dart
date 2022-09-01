@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/layout/news_layout/cubit/news_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/shared/components/components.dart';
-
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -40,8 +40,11 @@ class SearchScreen extends StatelessWidget {
                 ),
               )
           ),
-          body: articleListBuilder(searchList, context, isSearch: true),
-        );
+          body: ConditionalBuilder(
+            condition: searchList.isNotEmpty,
+              builder:(context) => articleListBuilder(searchList, context, isSearch: true),
+              fallback: (context) => Center(child: Image.asset(height:250, width: 250,'lib/shared/assets/images/saerch0.png')),
+        ));
       },
     );
   }
