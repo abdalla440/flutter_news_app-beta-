@@ -9,9 +9,14 @@ class ScienceScreen extends StatelessWidget {
     return BlocConsumer<NewsCubit, NewsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        NewsCubit.get(context)..loadScienceData();
+        NewsCubit.get(context).loadScienceData();
         var articles = NewsCubit.get(context).scienceData;
-        return maxArticleListBuilder(articles,context);
+        return RefreshIndicator(
+            onRefresh: () async{
+              NewsCubit.get(context).loadScienceData(refreshFlag: true);
+            },
+            child: maxArticleListBuilder(articles,context)
+        );
       },
     );
   }

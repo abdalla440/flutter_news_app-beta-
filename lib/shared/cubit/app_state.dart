@@ -5,6 +5,8 @@ abstract class AppState {}
 
 class AppInitialState extends AppState {}
 class AppChangeModeState extends AppState{}
+class AppChangeLanguageState extends AppState{}
+
 class AppDatabaseCreateState extends AppState{}
 
 class AppDatabaseInsertState extends AppState{}

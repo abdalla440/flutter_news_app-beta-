@@ -38,6 +38,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
   animated_bottom_navigation_bar: ^1.0.1

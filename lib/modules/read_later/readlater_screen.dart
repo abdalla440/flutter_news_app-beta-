@@ -24,7 +24,7 @@ class ReadLaterScreen extends StatelessWidget {
                 itemBuilder: (context) => [
                    PopupMenuItem(
                     child: TextButton(onPressed: () {
-                      AppCubit.get(context)..deleteFromDatabase(type: 'read later');
+                      AppCubit.get(context).deleteFromDatabase(type: 'read later');
                     }, child: const Text('Remove All',
                     )),
                   ),

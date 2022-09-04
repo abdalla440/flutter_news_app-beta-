@@ -13,6 +13,7 @@ class SearchScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = NewsCubit.get(context);
+
         List searchList = cubit.search;
         var _controller = TextEditingController();
 

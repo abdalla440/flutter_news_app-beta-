@@ -10,7 +10,7 @@ void main() async{
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CashHelper.init();
-  bool? isDark = CashHelper.getData(key: 'isDark');
+  bool? isDark = CashHelper.getBool(key: 'isDark');
   runApp( NewsApp(isDark));
 
 }

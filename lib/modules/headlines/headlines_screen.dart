@@ -9,9 +9,14 @@ class HeadLinesScreen extends StatelessWidget {
     return BlocConsumer<NewsCubit, NewsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        NewsCubit.get(context)..loadHeadlinesData();
+        NewsCubit.get(context).loadHeadlinesData();
         var articles = NewsCubit.get(context).headLiensData;
-        return maxArticleListBuilder(articles, context);
+        return RefreshIndicator(
+            onRefresh: () async{
+              NewsCubit.get(context).loadHeadlinesData(refreshFlag: true);
+            },
+            child: maxArticleListBuilder(articles,context)
+        );
       },
     );
   }

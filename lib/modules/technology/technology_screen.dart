@@ -12,7 +12,12 @@ class TechnologyScreen extends StatelessWidget {
         NewsCubit.get(context)..loadTechnologyData();
         var articles = NewsCubit.get(context).technologyData;
 
-        return maxArticleListBuilder(articles,context);
+        return RefreshIndicator(
+            onRefresh: () async{
+              NewsCubit.get(context)..loadTechnologyData(refreshFlag: true);
+            },
+            child: maxArticleListBuilder(articles,context)
+        );
       },
     );
   }

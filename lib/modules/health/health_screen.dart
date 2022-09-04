@@ -9,9 +9,14 @@ class HealthScreen extends StatelessWidget {
     return BlocConsumer<NewsCubit, NewsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        NewsCubit.get(context)..loadHealthData();
+        NewsCubit.get(context).loadHealthData();
         var articles = NewsCubit.get(context).healthData;
-        return maxArticleListBuilder(articles, context);
+        return RefreshIndicator(
+            onRefresh: () async{
+              NewsCubit.get(context).loadHealthData(refreshFlag: true);
+            },
+            child: maxArticleListBuilder(articles,context)
+        );
       },
     );
   }

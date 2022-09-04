@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,15 +23,11 @@ class NewsCubit extends Cubit<NewsState> {
   String apiKey = '671c08fe4f6e443b9b1df9a5b1d0dcb3';
   String country = 'eg';
   List<BottomNavigationBarItem> navBarList = const [
+    BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
     BottomNavigationBarItem(
-        icon: Icon(Icons.home_rounded),label:'Home'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.newspaper_rounded),label:'Headlines'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.search_rounded),label:'search'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.person_rounded),label:'Profile'),
-
+        icon: Icon(Icons.newspaper_rounded), label: 'Headlines'),
+    BottomNavigationBarItem(icon: Icon(Icons.search_rounded), label: 'search'),
+    BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'Profile'),
   ];
   List<Widget> screens = [
     HomeScreen(),
@@ -48,7 +42,7 @@ class NewsCubit extends Cubit<NewsState> {
     TechnologyScreen(),
     SportsScreen(),
   ];
-  List<Widget> homeTabsLabel =[
+  List<Widget> homeTabsLabel = [
     Text('Business'),
     Text('Science'),
     Text('health'),
@@ -57,12 +51,13 @@ class NewsCubit extends Cubit<NewsState> {
   ];
   void onChangeSelectedIndex(int index) {
     currentNavBarIndex = index;
-    if(index == 3){
-      appBarTitle = 'My Profile';
+    if(index!=2){
+      search = [];
     }
-    else{
+    if (index == 3) {
+      appBarTitle = 'My Profile';
+    } else {
       appBarTitle = 'News App';
-
     }
     emit(NewsChangeBottomNavItemState());
   }
@@ -71,8 +66,8 @@ class NewsCubit extends Cubit<NewsState> {
 
   /// create function to use when need to get Business data using getData method
   /// of [DioHelper] class
-  void loadBusinessData() {
-    if (businessData.isEmpty) {
+  void loadBusinessData({bool? refreshFlag}) {
+    if (businessData.isEmpty || refreshFlag == true) {
       emit(NewsLoadingBusinessState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
@@ -82,7 +77,6 @@ class NewsCubit extends Cubit<NewsState> {
           .then((value) => {
                 emit(NewsSuccessBusinessState()),
                 businessData = value.data['articles'],
-
               })
           .catchError((error) {
         emit(NewsFailureBusinessState());
@@ -97,8 +91,8 @@ class NewsCubit extends Cubit<NewsState> {
 
   /// create function to use when need to get Sports data using getData method
   /// of [DioHelper] class
-  void loadSportsData() {
-    if (sportsData.isEmpty) {
+  void loadSportsData({bool? refreshFlag}) {
+    if (sportsData.isEmpty || refreshFlag == true) {
       emit(NewsLoadingSportsState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
@@ -108,7 +102,6 @@ class NewsCubit extends Cubit<NewsState> {
           .then((value) => {
                 emit(NewsSuccessSportsState()),
                 sportsData = value.data['articles'],
-
               })
           .catchError((error) {
         emit(NewsFailureSportsState());
@@ -123,8 +116,8 @@ class NewsCubit extends Cubit<NewsState> {
 
   /// create function to use when need to get Business data using getData method
   /// of [DioHelper] class
-  void loadScienceData() {
-    if (scienceData.isEmpty) {
+  void loadScienceData({bool? refreshFlag}) {
+    if (scienceData.isEmpty|| refreshFlag == true) {
       emit(NewsLoadingBusinessState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
@@ -134,7 +127,6 @@ class NewsCubit extends Cubit<NewsState> {
           .then((value) => {
                 emit(NewsSuccessBusinessState()),
                 scienceData = value.data['articles'],
-
               })
           .catchError((error) {
         emit(NewsFailureBusinessState());
@@ -151,7 +143,7 @@ class NewsCubit extends Cubit<NewsState> {
   /// of [DioHelper] class
   void loadHomeData() {
     if (homeData.isEmpty) {
-      emit(NewsLoadingBusinessState());
+      emit(NewsLoadingHomeState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
         'apiKey': apiKey,
@@ -161,7 +153,7 @@ class NewsCubit extends Cubit<NewsState> {
                 homeData = value.data['articles'],
               })
           .catchError((error) {
-        emit(NewsFailureBusinessState());
+        emit(NewsFailureHomeState());
         print('there is an error: ----> ${error.toString()}');
       });
     } else {
@@ -176,16 +168,15 @@ class NewsCubit extends Cubit<NewsState> {
   void loadSearchData({String? searchKey}) {
     search = [];
     if (search.isEmpty) {
-
       emit(NewsLoadingSearchState());
       DioHelper.getData(url: 'v2/everything', query: {
-        'q':'$searchKey',
+        'q': '$searchKey',
         'apiKey': apiKey,
       })
           .then((value) => {
-        emit(NewsSuccessSearchState()),
-        search = value.data['articles'],
-      })
+                emit(NewsSuccessSearchState()),
+                search = value.data['articles'],
+              })
           .catchError((error) {
         emit(NewsFailureSearchState());
         print('there is an error: ----> ${error.toString()}');
@@ -199,8 +190,8 @@ class NewsCubit extends Cubit<NewsState> {
 
   /// create function to use when need to get Business data using getData method
   /// of [DioHelper] class
-  void loadHealthData() {
-    if (healthData.isEmpty) {
+  void loadHealthData({bool? refreshFlag}) {
+    if (healthData.isEmpty|| refreshFlag == true) {
       emit(NewsLoadingHealthState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
@@ -208,10 +199,9 @@ class NewsCubit extends Cubit<NewsState> {
         'apiKey': apiKey,
       })
           .then((value) => {
-        emit(NewsSuccessHealthState()),
-        healthData = value.data['articles'],
-
-      })
+                emit(NewsSuccessHealthState()),
+                healthData = value.data['articles'],
+              })
           .catchError((error) {
         emit(NewsFailureHealthState());
         print(error.toString());
@@ -225,8 +215,8 @@ class NewsCubit extends Cubit<NewsState> {
 
   /// create function to use when need to get Business data using getData method
   /// of [DioHelper] class
-  void loadTechnologyData() {
-    if (technologyData.isEmpty) {
+  void loadTechnologyData({bool? refreshFlag}) {
+    if (technologyData.isEmpty|| refreshFlag == true) {
       emit(NewsLoadingTechnologyState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
@@ -234,10 +224,9 @@ class NewsCubit extends Cubit<NewsState> {
         'apiKey': apiKey,
       })
           .then((value) => {
-        emit(NewsSuccessTechnologyState()),
-        technologyData = value.data['articles'],
-
-      })
+                emit(NewsSuccessTechnologyState()),
+                technologyData = value.data['articles'],
+              })
           .catchError((error) {
         emit(NewsFailureTechnologyState());
         print(error.toString());
@@ -251,18 +240,17 @@ class NewsCubit extends Cubit<NewsState> {
 
   /// create function to use when need to get Business data using getData method
   /// of [DioHelper] class
-  void loadHeadlinesData() {
-    if (headLiensData.isEmpty) {
+  void loadHeadlinesData({bool? refreshFlag}) {
+    if (headLiensData.isEmpty|| refreshFlag == true) {
       emit(NewsLoadingHeadLinesState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': country,
         'apiKey': apiKey,
       })
           .then((value) => {
-        emit(NewsSuccessHeadLinesState()),
-        headLiensData = value.data['articles'],
-
-      })
+                emit(NewsSuccessHeadLinesState()),
+                headLiensData = value.data['articles'],
+              })
           .catchError((error) {
         emit(NewsFailureHeadLinesState());
         print(error.toString());
@@ -271,6 +259,4 @@ class NewsCubit extends Cubit<NewsState> {
       emit(NewsSuccessBusinessState());
     }
   }
-
-
 }
