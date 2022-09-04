@@ -11,7 +11,7 @@ class HeadLinesScreen extends StatelessWidget {
       builder: (context, state) {
         NewsCubit.get(context)..loadHeadlinesData();
         var articles = NewsCubit.get(context).headLiensData;
-        return articleListBuilder(articles, context);
+        return maxArticleListBuilder(articles, context);
       },
     );
   }

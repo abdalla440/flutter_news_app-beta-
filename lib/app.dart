@@ -12,11 +12,10 @@ class NewsApp extends StatelessWidget {
   NewsApp(this.isDark);
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AppCubit()..changeMode(themeIndicator: isDark),
+          create: (context) => AppCubit()..changeMode(themeIndicator: isDark)..createDatabase(),
         ),
         BlocProvider(
           create: (context) => NewsCubit()..loadHomeData(),
@@ -53,22 +52,25 @@ class NewsApp extends StatelessWidget {
                     selectedItemColor: Colors.red,
                     selectedLabelStyle:
                         const TextStyle(fontWeight: FontWeight.w500)),
+                tabBarTheme: TabBarTheme(
+                  labelColor: Colors.black.withOpacity(0.9),
+                  unselectedLabelColor: Colors.black.withOpacity(0.5),
+
+                ),
                 textTheme: const TextTheme(
                     bodyText1: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
                         color: Colors.black),
                     bodyText2: TextStyle(fontSize: 18.0, color: Colors.black)),
-                iconTheme: IconThemeData(
-                    color: Colors.black
-                )),
+                iconTheme: IconThemeData(color: Colors.black)),
             darkTheme: ThemeData(
-                primarySwatch: Colors.teal,
+                primarySwatch: Colors.red,
                 appBarTheme: AppBarTheme(
-                  backgroundColor: HexColor('333739'),
+                  backgroundColor: Colors.white.withOpacity(0.12),
                   systemOverlayStyle: SystemUiOverlayStyle(
                       statusBarIconBrightness: Brightness.light,
-                      statusBarColor: HexColor('333739')),
+                      statusBarColor: Colors.white.withOpacity(0.12)),
                   titleTextStyle: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -79,24 +81,28 @@ class NewsApp extends StatelessWidget {
                   ),
                   elevation: 0.5,
                 ),
-                scaffoldBackgroundColor: HexColor('333739'),
+                scaffoldBackgroundColor: HexColor('121212'),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     type: BottomNavigationBarType.fixed,
                     elevation: 20,
-                    backgroundColor: HexColor('333739'),
+                    backgroundColor: Colors.white.withOpacity(0.12),
                     unselectedItemColor: Colors.grey[500],
-                    selectedItemColor: Colors.teal[500],
+                    selectedItemColor: Colors.red[500],
                     selectedLabelStyle:
                         const TextStyle(fontWeight: FontWeight.w500)),
-                textTheme: const TextTheme(
-                    bodyText1: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                    bodyText2: TextStyle(fontSize: 18.0, color: Colors.white)),
-            iconTheme: IconThemeData(
-              color: Colors.white
-            )),
+                tabBarTheme: TabBarTheme(
+                  labelColor: Colors.white.withOpacity(0.9),
+                  unselectedLabelColor: Colors.white.withOpacity(0.5),
+
+                ),
+                textTheme:  TextTheme(
+                  bodyText1: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                  bodyText2: TextStyle(fontSize: 18.0, color: Colors.white),
+                ),
+                iconTheme: IconThemeData(color: Colors.white)),
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,

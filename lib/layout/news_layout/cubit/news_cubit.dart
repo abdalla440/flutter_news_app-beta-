@@ -22,6 +22,8 @@ class NewsCubit extends Cubit<NewsState> {
   int currentNavBarIndex = 0;
   int currentTabBarIndex = 0;
   String appBarTitle = 'News App';
+  String apiKey = '671c08fe4f6e443b9b1df9a5b1d0dcb3';
+  String country = 'eg';
   List<BottomNavigationBarItem> navBarList = const [
     BottomNavigationBarItem(
         icon: Icon(Icons.home_rounded),label:'Home'),
@@ -30,7 +32,7 @@ class NewsCubit extends Cubit<NewsState> {
     BottomNavigationBarItem(
         icon: Icon(Icons.search_rounded),label:'search'),
     BottomNavigationBarItem(
-        icon: Icon(Icons.person_rounded),label:'Customs'),
+        icon: Icon(Icons.person_rounded),label:'Profile'),
 
   ];
   List<Widget> screens = [
@@ -73,9 +75,9 @@ class NewsCubit extends Cubit<NewsState> {
     if (businessData.isEmpty) {
       emit(NewsLoadingBusinessState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
+        'country': country,
         'category': 'business',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'apiKey': apiKey,
       })
           .then((value) => {
                 emit(NewsSuccessBusinessState()),
@@ -99,9 +101,9 @@ class NewsCubit extends Cubit<NewsState> {
     if (sportsData.isEmpty) {
       emit(NewsLoadingSportsState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
+        'country': country,
         'category': 'sports',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'apiKey': apiKey,
       })
           .then((value) => {
                 emit(NewsSuccessSportsState()),
@@ -125,9 +127,9 @@ class NewsCubit extends Cubit<NewsState> {
     if (scienceData.isEmpty) {
       emit(NewsLoadingBusinessState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
+        'country': country,
         'category': 'science',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'apiKey': apiKey,
       })
           .then((value) => {
                 emit(NewsSuccessBusinessState()),
@@ -151,8 +153,8 @@ class NewsCubit extends Cubit<NewsState> {
     if (homeData.isEmpty) {
       emit(NewsLoadingBusinessState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'country': country,
+        'apiKey': apiKey,
       })
           .then((value) => {
                 emit(NewsSuccessBusinessState()),
@@ -174,10 +176,11 @@ class NewsCubit extends Cubit<NewsState> {
   void loadSearchData({String? searchKey}) {
     search = [];
     if (search.isEmpty) {
+
       emit(NewsLoadingSearchState());
       DioHelper.getData(url: 'v2/everything', query: {
         'q':'$searchKey',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'apiKey': apiKey,
       })
           .then((value) => {
         emit(NewsSuccessSearchState()),
@@ -200,9 +203,9 @@ class NewsCubit extends Cubit<NewsState> {
     if (healthData.isEmpty) {
       emit(NewsLoadingHealthState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
+        'country': country,
         'category': 'health',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'apiKey': apiKey,
       })
           .then((value) => {
         emit(NewsSuccessHealthState()),
@@ -226,9 +229,9 @@ class NewsCubit extends Cubit<NewsState> {
     if (technologyData.isEmpty) {
       emit(NewsLoadingTechnologyState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
+        'country': country,
         'category': 'technology',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'apiKey': apiKey,
       })
           .then((value) => {
         emit(NewsSuccessTechnologyState()),
@@ -252,8 +255,8 @@ class NewsCubit extends Cubit<NewsState> {
     if (headLiensData.isEmpty) {
       emit(NewsLoadingHeadLinesState());
       DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
-        'apiKey': '5d22678c239242eea6529d3224b90299',
+        'country': country,
+        'apiKey': apiKey,
       })
           .then((value) => {
         emit(NewsSuccessHeadLinesState()),
@@ -269,7 +272,5 @@ class NewsCubit extends Cubit<NewsState> {
     }
   }
 
-  void createDatabase(){
 
-  }
 }
